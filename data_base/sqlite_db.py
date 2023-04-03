@@ -1,5 +1,6 @@
 import sqlite3 as sq
 from create_bot import dp, bot
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 def sql_start():
@@ -22,6 +23,8 @@ async def sql_add_command(state):
 async def sql_read(message):
     for ret in cur.execute("SELECT * FROM menu").fetchall():
         await bot.send_photo(message.from_user.id, ret[0], f'{ret[1]}\nОписание: {ret[2]}\nЦена {ret[3]}')
+        await bot.send_message(message.from_user.id, text="________",
+                               reply_markup=InlineKeyboardMarkup().add(InlineKeyboardButton(f"Купить {ret[1]}")))
 
 
 async def sql_read2():
