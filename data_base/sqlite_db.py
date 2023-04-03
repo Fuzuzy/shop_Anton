@@ -9,7 +9,7 @@ def sql_start():
     if base:
         print("База данных запущена успешно")
     base.execute(
-        'CREATE TABLE IF NOT EXISTS menu(img TEXT, name TEXT PRIMARY KEY, description TEXT, price TEXT, url TEXT)')
+        'CREATE TABLE IF NOT EXISTS menu(img TEXT, name TEXT, description TEXT, price TEXT, url TEXT)')
     base.commit()
 
 
@@ -21,7 +21,7 @@ async def sql_add_command(state):
 
 async def sql_read(message):
     for ret in cur.execute("SELECT * FROM menu").fetchall():
-        await bot.send_photo(message.from_user.id, ret[0], f'{ret[1]}\nОписание: {ret[2]}\nЦена {ret[-1]}')
+        await bot.send_photo(message.from_user.id, ret[0], f'{ret[1]}\nОписание: {ret[2]}\nЦена {ret[3]}')
 
 
 async def sql_read2():
